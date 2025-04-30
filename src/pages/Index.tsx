@@ -1,38 +1,20 @@
-
 import { useState } from 'react';
 import FieldCarousel from "@/components/FieldCarousel";
 import SearchFilter from "@/components/SearchFilter";
 import FieldsGrid from "@/components/FieldsGrid";
 import { fields } from "@/data/fields";
-
 const Index = () => {
   const [filters, setFilters] = useState({
     search: '',
     sport: '',
     price: '',
-    availability: '',
+    availability: ''
   });
-
   const handleSearch = (newFilters: typeof filters) => {
     setFilters(newFilters);
   };
-
-  return (
-    <div className="min-h-screen">
-      <header className="bg-sport-blue py-4 px-4 md:px-8 flex items-center justify-between">
-        <div className="flex items-center">
-          <h1 className="text-2xl font-bold text-white mr-2">FieldFinder</h1>
-          <div className="h-2 w-2 rounded-full bg-sport-orange animate-pulse-light"></div>
-        </div>
-        <nav>
-          <ul className="flex gap-6">
-            <li><a href="#" className="text-white hover:text-sport-orange transition-colors">Home</a></li>
-            <li><a href="#" className="text-white hover:text-sport-orange transition-colors">Fields</a></li>
-            <li><a href="#" className="text-white hover:text-sport-orange transition-colors">About</a></li>
-            <li><a href="#" className="text-white hover:text-sport-orange transition-colors">Contact</a></li>
-          </ul>
-        </nav>
-      </header>
+  return <div className="min-h-screen">
+      
 
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section with Carousel */}
@@ -89,8 +71,6 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
