@@ -1,8 +1,8 @@
 
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import { Carousel, Button as AntButton, Typography } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { cn } from '@/lib/utils';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 interface CarouselImage {
@@ -29,91 +29,81 @@ const images: CarouselImage[] = [{
   description: "Olympic sized pools for training and recreation"
 }];
 
+const { Title, Text } = Typography;
+
 const FieldCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const carouselRef = React.useRef<any>(null);
   const isMobile = useIsMobile();
 
   const goToNext = () => {
-    if (!isTransitioning) {
-      setIsTransitioning(true);
-      setCurrentIndex(prevIndex => (prevIndex + 1) % images.length);
-    }
+    carouselRef.current?.next();
   };
 
   const goToPrevious = () => {
-    if (!isTransitioning) {
-      setIsTransitioning(true);
-      setCurrentIndex(prevIndex => (prevIndex - 1 + images.length) % images.length);
-    }
+    carouselRef.current?.prev();
   };
 
-  const goToSlide = (index: number) => {
-    if (!isTransitioning) {
-      setIsTransitioning(true);
-      setCurrentIndex(index);
-    }
+  const afterChange = (current: number) => {
+    setCurrentIndex(current);
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsTransitioning(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [currentIndex]);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      goToNext();
-    }, 5000);
-    return () => clearInterval(intervalId);
-  }, [isTransitioning]);
 
   return (
     <div className={cn("relative w-full overflow-hidden rounded-lg", isMobile ? "h-[300px]" : "h-[500px]")}>
-      {/* Carousel images */}
-      {images.map((image, index) => (
-        <div 
-          key={index} 
-          className={cn("absolute top-0 left-0 w-full h-full transition-opacity duration-500", 
-            index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0")}
-        >
-          <div className="absolute inset-0 bg-sport-blue/50 z-10" />
-          <img src={image.url} alt={image.title} className="w-full h-full object-cover object-center" />
-          
-          {/* Image content/caption - now responsive */}
-          <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 z-20 bg-gradient-to-t from-black/80 to-transparent">
-            <h3 className={cn("text-white font-bold", isMobile ? "text-xl" : "text-2xl")}>{image.title}</h3>
-            <p className={cn("text-white/90", isMobile ? "text-sm" : "text-base")}>{image.description}</p>
+      <Carousel 
+        ref={carouselRef} 
+        afterChange={afterChange} 
+        autoplay 
+        effect="fade"
+        dots={{ className: 'custom-dots' }}
+      >
+        {images.map((image, index) => (
+          <div key={index}>
+            <div className="relative h-full">
+              <div className="absolute inset-0 bg-sport-blue/50 z-10" />
+              <img 
+                src={image.url} 
+                alt={image.title} 
+                className={cn("w-full object-cover object-center", isMobile ? "h-[300px]" : "h-[500px]")} 
+              />
+              
+              {/* Image content/caption - now using Ant Design Typography */}
+              <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 z-20 bg-gradient-to-t from-black/80 to-transparent">
+                <Title level={isMobile ? 4 : 3} style={{ color: 'white', margin: '0' }}>{image.title}</Title>
+                <Text style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: isMobile ? '14px' : '16px' }}>
+                  {image.description}
+                </Text>
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </Carousel>
 
-      {/* Navigation buttons */}
-      <Button 
-        variant="outline" 
-        size={isMobile ? "sm" : "icon"} 
+      {/* Navigation buttons - now using Ant Design Button */}
+      <AntButton 
+        icon={<LeftOutlined />}
+        shape="circle" 
         className={cn(
-          "absolute top-1/2 left-2 md:left-4 z-30 bg-white/20 backdrop-blur-sm border-white/10 hover:bg-white/30",
+          "absolute top-1/2 left-2 md:left-4 z-30 bg-white/20 backdrop-blur-sm",
           "transform -translate-y-1/2"
         )}
+        style={{ border: '1px solid rgba(255, 255, 255, 0.1)' }}
         onClick={goToPrevious}
-      >
-        <ArrowLeft className={cn("text-white", isMobile ? "h-3 w-3" : "h-4 w-4")} />
-      </Button>
-      <Button 
-        variant="outline" 
-        size={isMobile ? "sm" : "icon"} 
+        size={isMobile ? "small" : "middle"}
+      />
+      <AntButton 
+        icon={<RightOutlined />}
+        shape="circle" 
         className={cn(
-          "absolute top-1/2 right-2 md:right-4 z-30 bg-white/20 backdrop-blur-sm border-white/10 hover:bg-white/30",
+          "absolute top-1/2 right-2 md:right-4 z-30 bg-white/20 backdrop-blur-sm",
           "transform -translate-y-1/2"
         )}
+        style={{ border: '1px solid rgba(255, 255, 255, 0.1)' }}
         onClick={goToNext}
-      >
-        <ArrowRight className={cn("text-white", isMobile ? "h-3 w-3" : "h-4 w-4")} />
-      </Button>
+        size={isMobile ? "small" : "middle"}
+      />
 
-      {/* Indicator dots - now responsive */}
+      {/* Custom indicator dots */}
       <div className={cn(
         "absolute z-30 flex space-x-2",
         isMobile ? "bottom-16 left-1/2 transform -translate-x-1/2" : "bottom-20 left-1/2 transform -translate-x-1/2"
@@ -121,7 +111,7 @@ const FieldCarousel = () => {
         {images.map((_, index) => (
           <button 
             key={index} 
-            onClick={() => goToSlide(index)} 
+            onClick={() => carouselRef.current?.goTo(index)} 
             className={cn(
               "rounded-full transition-all duration-300",
               index === currentIndex ? "bg-white scale-125" : "bg-white/50 hover:bg-white/80",
@@ -131,6 +121,19 @@ const FieldCarousel = () => {
           />
         ))}
       </div>
+
+      {/* Custom styles for Ant Design carousel dots */}
+      <style jsx global>{`
+        .custom-dots {
+          display: none !important;
+        }
+        .ant-carousel .slick-dots li button {
+          background: rgba(255, 255, 255, 0.5);
+        }
+        .ant-carousel .slick-dots li.slick-active button {
+          background: white;
+        }
+      `}</style>
     </div>
   );
 };
