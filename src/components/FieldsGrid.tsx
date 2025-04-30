@@ -37,7 +37,6 @@ const FieldsGrid = ({ fields, filters }: FieldsGridProps) => {
 
     // Filter by price
     if (filters.price) {
-      const price = parseFloat(field.price.replace(/[^0-9.]/g, ''));
       switch (filters.price) {
         case 'low':
           result = result.filter(field => {
