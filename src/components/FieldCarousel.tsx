@@ -62,11 +62,7 @@ const FieldCarousel = () => {
       {images.map((image, index) => <div key={index} className={cn("absolute top-0 left-0 w-full h-full transition-opacity duration-500", index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0")}>
           <div className="absolute inset-0 bg-sport-blue/50 z-10" />
           <img src={image.url} alt={image.title} className="w-full h-full object-cover object-center" />
-          <div className="absolute bottom-0 left-0 right-0 p-6 z-20 bg-gradient-to-t from-sport-blue/90 to-transparent">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">{image.title}</h2>
-            <p className="text-white/80 mb-4 max-w-lg">{image.description}</p>
-            
-          </div>
+          
         </div>)}
 
       {/* Navigation buttons */}
