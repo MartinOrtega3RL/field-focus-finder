@@ -87,7 +87,7 @@ const SearchFilter = ({ onSearch }: SearchFilterProps) => {
                   <SelectValue placeholder="All Sports" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Sports</SelectItem>
+                  <SelectItem value="all">All Sports</SelectItem>
                   <SelectItem value="soccer">Soccer</SelectItem>
                   <SelectItem value="basketball">Basketball</SelectItem>
                   <SelectItem value="tennis">Tennis</SelectItem>
@@ -106,7 +106,7 @@ const SearchFilter = ({ onSearch }: SearchFilterProps) => {
                   <SelectValue placeholder="Any Price" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Price</SelectItem>
+                  <SelectItem value="any">Any Price</SelectItem>
                   <SelectItem value="low">Under $50</SelectItem>
                   <SelectItem value="medium">$50 - $100</SelectItem>
                   <SelectItem value="high">Over $100</SelectItem>
@@ -123,7 +123,7 @@ const SearchFilter = ({ onSearch }: SearchFilterProps) => {
                   <SelectValue placeholder="Any Time" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Time</SelectItem>
+                  <SelectItem value="any">Any Time</SelectItem>
                   <SelectItem value="morning">Morning</SelectItem>
                   <SelectItem value="afternoon">Afternoon</SelectItem>
                   <SelectItem value="evening">Evening</SelectItem>
