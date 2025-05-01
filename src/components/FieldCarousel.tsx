@@ -13,20 +13,20 @@ interface CarouselImage {
 
 const images: CarouselImage[] = [{
   url: "https://images.unsplash.com/photo-1599018552443-1d5f67f93e85?q=80&w=1920&auto=format&fit=crop",
-  title: "Soccer Fields",
-  description: "Professional fields for soccer enthusiasts"
+  title: "Canchas de Fútbol",
+  description: "Campos profesionales para entusiastas del fútbol"
 }, {
   url: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1920&auto=format&fit=crop",
-  title: "Basketball Courts",
-  description: "Indoor and outdoor courts available"
+  title: "Canchas de Baloncesto",
+  description: "Canchas cubiertas y al aire libre disponibles"
 }, {
   url: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=1920&auto=format&fit=crop",
-  title: "Tennis Courts",
-  description: "Clay, grass and hard courts"
+  title: "Canchas de Tenis",
+  description: "Canchas de arcilla, césped y superficie dura"
 }, {
   url: "https://images.unsplash.com/photo-1611372096324-cfb1c5b0ca59?q=80&w=1920&auto=format&fit=crop",
-  title: "Swimming Pools",
-  description: "Olympic sized pools for training and recreation"
+  title: "Piscinas",
+  description: "Piscinas de tamaño olímpico para entrenamiento y recreación"
 }];
 
 const { Title, Text } = Typography;
@@ -67,7 +67,7 @@ const FieldCarousel = () => {
                 className={cn("w-full object-cover object-center", isMobile ? "h-[300px]" : "h-[500px]")} 
               />
               
-              {/* Image content/caption - now using Ant Design Typography */}
+              {/* Image content/caption */}
               <div className="absolute bottom-0 left-0 w-full p-4 md:p-6 z-20 bg-gradient-to-t from-black/80 to-transparent">
                 <Title level={isMobile ? 4 : 3} style={{ color: 'white', margin: '0' }}>{image.title}</Title>
                 <Text style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: isMobile ? '14px' : '16px' }}>
@@ -79,7 +79,7 @@ const FieldCarousel = () => {
         ))}
       </Carousel>
 
-      {/* Navigation buttons - now using Ant Design Button */}
+      {/* Navigation buttons */}
       <AntButton 
         icon={<LeftOutlined />}
         shape="circle" 
@@ -117,7 +117,7 @@ const FieldCarousel = () => {
               index === currentIndex ? "bg-white scale-125" : "bg-white/50 hover:bg-white/80",
               isMobile ? "w-2 h-2" : "w-2.5 h-2.5"
             )} 
-            aria-label={`Go to slide ${index + 1}`} 
+            aria-label={`Ir a la diapositiva ${index + 1}`} 
           />
         ))}
       </div>
