@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Carousel, Button as AntButton, Typography } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { cn } from '@/lib/utils';
@@ -123,7 +123,8 @@ const FieldCarousel = () => {
       </div>
 
       {/* Custom styles for Ant Design carousel dots */}
-      <style jsx global>{`
+      <style>
+        {`
         .custom-dots {
           display: none !important;
         }
@@ -133,7 +134,8 @@ const FieldCarousel = () => {
         .ant-carousel .slick-dots li.slick-active button {
           background: white;
         }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };
