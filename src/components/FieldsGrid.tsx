@@ -11,9 +11,10 @@ interface FieldsGridProps {
     price: string;
     availability: string;
   };
+  selectedDate: Date;
 }
 
-const FieldsGrid = ({ fields, filters }: FieldsGridProps) => {
+const FieldsGrid = ({ fields, filters, selectedDate }: FieldsGridProps) => {
   const [filteredFields, setFilteredFields] = useState<Field[]>([]);
 
   useEffect(() => {
@@ -102,8 +103,8 @@ const FieldsGrid = ({ fields, filters }: FieldsGridProps) => {
     return (
       <div className="w-full h-48 flex items-center justify-center bg-white/5 rounded-lg">
         <div className="text-center">
-          <h3 className="text-xl font-bold mb-2">No fields found</h3>
-          <p className="text-muted-foreground">Try adjusting your filters</p>
+          <h3 className="text-xl font-bold mb-2">No se encontraron canchas</h3>
+          <p className="text-muted-foreground">Intenta ajustar tus filtros</p>
         </div>
       </div>
     );
@@ -112,7 +113,11 @@ const FieldsGrid = ({ fields, filters }: FieldsGridProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {filteredFields.map(field => (
-        <FieldCard key={field.id} field={field} />
+        <FieldCard 
+          key={field.id} 
+          field={field} 
+          selectedDate={selectedDate}
+        />
       ))}
     </div>
   );
